@@ -1,0 +1,693 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#123e67">
+  <meta name="description" content="병원 인증조사에 필요한 핵심 항목을 빠르게 확인하는 교육 매뉴얼">
+  <meta name="robots" content="noindex, nofollow">
+  <title>병원 인증교육 매뉴얼</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23123e67'/%3E%3Cpath d='M28 14h8v14h14v8H36v14h-8V36H14v-8h14z' fill='white'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --navy: #123e67;
+      --navy-2: #0b2a47;
+      --blue: #2a6f9e;
+      --blue-soft: #e8f2f8;
+      --red: #c83d4d;
+      --red-soft: #fff0f2;
+      --ink: #17212b;
+      --muted: #607182;
+      --line: #dce4ea;
+      --paper: #ffffff;
+      --wash: #f4f7f9;
+      --shadow: 0 16px 40px rgba(18, 62, 103, .09);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--wash);
+      color: var(--ink);
+      font-family: Pretendard, "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      word-break: keep-all;
+    }
+    button, input { font: inherit; }
+    button { color: inherit; }
+    a { color: inherit; }
+    :focus-visible { outline: 3px solid rgba(42, 111, 158, .35); outline-offset: 3px; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(255, 255, 255, .96);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+    .topbar-inner {
+      width: min(1120px, calc(100% - 40px));
+      min-height: 72px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr minmax(280px, 460px);
+      align-items: center;
+      gap: 28px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      text-decoration: none;
+      font-weight: 800;
+      letter-spacing: -.025em;
+    }
+    .brand-mark {
+      display: grid;
+      width: 36px;
+      height: 36px;
+      flex: 0 0 auto;
+      place-items: center;
+      border-radius: 10px;
+      background: var(--navy);
+      color: white;
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+    .brand-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .search-wrap { position: relative; }
+    .search-icon {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      color: var(--muted);
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+    #search {
+      width: 100%;
+      height: 44px;
+      padding: 0 42px;
+      border: 1px solid #cbd7df;
+      border-radius: 12px;
+      background: #f8fafb;
+      color: var(--ink);
+      transition: border-color .16s ease, box-shadow .16s ease, background .16s ease;
+    }
+    #search:focus {
+      border-color: var(--blue);
+      background: white;
+      box-shadow: 0 0 0 4px rgba(42, 111, 158, .1);
+      outline: 0;
+    }
+    .shortcut {
+      position: absolute;
+      right: 11px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #7b8995;
+      font-size: .75rem;
+    }
+    .search-results {
+      position: absolute;
+      top: calc(100% + 9px);
+      right: 0;
+      left: 0;
+      display: none;
+      max-height: 420px;
+      overflow: auto;
+      padding: 7px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: white;
+      box-shadow: var(--shadow);
+    }
+    .search-results.open { display: block; }
+    .search-result {
+      display: block;
+      width: 100%;
+      padding: 11px 12px;
+      border: 0;
+      border-radius: 9px;
+      background: transparent;
+      color: inherit;
+      text-decoration: none;
+      text-align: left;
+      cursor: pointer;
+    }
+    .search-result:hover, .search-result:focus-visible { background: var(--blue-soft); }
+    .search-result strong { display: block; font-size: .92rem; }
+    .search-result small { display: block; margin-top: 2px; color: var(--muted); }
+    mark { background: #fff0a8; color: inherit; }
+
+    main { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+    .view { display: none; }
+    .view.active { display: block; }
+
+    .home-intro {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 28px;
+      align-items: end;
+      padding: 62px 0 30px;
+    }
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--blue);
+      font-size: .83rem;
+      font-weight: 800;
+      letter-spacing: .1em;
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 {
+      max-width: 720px;
+      margin-bottom: 12px;
+      color: var(--navy-2);
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      line-height: 1.15;
+      letter-spacing: -.055em;
+    }
+    .intro-copy { max-width: 680px; margin-bottom: 0; color: var(--muted); font-size: 1.04rem; }
+    .updated {
+      margin-bottom: 5px;
+      color: var(--muted);
+      font-size: .83rem;
+      white-space: nowrap;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      padding: 8px 0 64px;
+    }
+    .category-card {
+      position: relative;
+      min-height: 295px;
+      overflow: hidden;
+      padding: 25px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--paper);
+      box-shadow: 0 7px 18px rgba(18, 62, 103, .045);
+      color: inherit;
+      text-decoration: none;
+      text-align: left;
+      cursor: pointer;
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+    }
+    .category-card:hover {
+      border-color: #9fb9ca;
+      box-shadow: var(--shadow);
+      transform: translateY(-3px);
+    }
+    .category-card.priority { border-top: 5px solid var(--red); padding-top: 21px; }
+    .card-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .card-number {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      border-radius: 13px;
+      background: var(--blue-soft);
+      color: var(--navy);
+      font-weight: 900;
+    }
+    .priority .card-number { background: var(--red-soft); color: var(--red); }
+    .priority-badge {
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: var(--red-soft);
+      color: #a92939;
+      font-size: .76rem;
+      font-weight: 800;
+    }
+    .category-card h2 { margin: 24px 0 8px; color: var(--navy-2); font-size: 1.35rem; letter-spacing: -.035em; }
+    .category-card p { min-height: 52px; margin-bottom: 22px; color: var(--muted); font-size: .93rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 7px; }
+    .chip { padding: 6px 9px; border-radius: 7px; background: #f1f4f6; color: #465867; font-size: .78rem; font-weight: 700; }
+    .open-label { position: absolute; right: 24px; bottom: 21px; color: var(--blue); font-size: .82rem; font-weight: 800; }
+
+    .detail-shell { padding: 38px 0 76px; }
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 20px;
+      padding: 8px 0;
+      border: 0;
+      background: transparent;
+      color: var(--blue);
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .detail-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 26px;
+      align-items: end;
+      margin-bottom: 22px;
+      padding: 30px 32px;
+      border-radius: 18px;
+      background: var(--navy);
+      color: white;
+    }
+    .detail-head .eyebrow { color: #9bd0ee; }
+    .detail-head h1 { margin-bottom: 7px; color: white; font-size: clamp(1.8rem, 4vw, 2.65rem); }
+    .detail-head p { max-width: 680px; margin-bottom: 0; color: #d6e5ef; }
+    .head-count { color: #d6e5ef; font-size: .86rem; white-space: nowrap; }
+    .notice {
+      display: flex;
+      gap: 10px;
+      margin: 0 0 18px;
+      padding: 14px 16px;
+      border: 1px solid #f1d6a5;
+      border-radius: 12px;
+      background: #fff9ec;
+      color: #6c5120;
+      font-size: .9rem;
+    }
+    .section-list { display: grid; gap: 11px; }
+    .chapter-heading {
+      margin: 18px 2px 1px;
+      color: var(--navy-2);
+      font-size: 1.05rem;
+      letter-spacing: -.025em;
+    }
+    .chapter-heading:first-child { margin-top: 0; }
+    .manual-section {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: white;
+      box-shadow: 0 3px 10px rgba(18, 62, 103, .035);
+      scroll-margin-top: 96px;
+    }
+    .manual-section summary {
+      position: relative;
+      display: grid;
+      grid-template-columns: 62px minmax(0, 1fr) auto;
+      gap: 15px;
+      align-items: center;
+      padding: 18px 22px;
+      list-style: none;
+      cursor: pointer;
+    }
+    .manual-section summary::-webkit-details-marker { display: none; }
+    .manual-section summary::after {
+      content: "+";
+      color: var(--blue);
+      font-size: 1.4rem;
+      font-weight: 500;
+      transition: transform .16s ease;
+    }
+    .manual-section[open] summary::after { transform: rotate(45deg); }
+    .manual-section[open] summary { border-bottom: 1px solid var(--line); background: #fbfcfd; }
+    .section-code { color: var(--blue); font-size: .84rem; font-weight: 900; }
+    .section-title { margin: 0; color: var(--navy-2); font-size: 1rem; font-weight: 800; }
+    .critical-tag {
+      display: inline-block;
+      margin-left: 8px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: var(--red-soft);
+      color: #a92939;
+      font-size: .68rem;
+      font-weight: 900;
+      vertical-align: 1px;
+    }
+    .section-meta { display: block; margin-top: 2px; color: var(--muted); font-size: .78rem; }
+    .section-body { padding: 21px 22px 24px 99px; }
+    .section-body h3 { margin-bottom: 9px; color: var(--navy); font-size: .9rem; }
+    .section-body ul { margin: 0; padding-left: 1.1rem; }
+    .section-body li + li { margin-top: 6px; }
+    .callout {
+      margin-top: 17px;
+      padding: 13px 15px;
+      border-left: 4px solid var(--red);
+      border-radius: 0 8px 8px 0;
+      background: var(--red-soft);
+      color: #612832;
+      font-size: .9rem;
+    }
+    .subtopic-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 18px;
+    }
+    .subtopic {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: #fbfcfd;
+      color: #324657;
+      font-size: .83rem;
+    }
+    .subtopic small { flex: 0 0 auto; color: var(--muted); }
+    .empty { padding: 32px; border: 1px dashed #bccbd4; border-radius: 14px; background: white; color: var(--muted); text-align: center; }
+    .visually-hidden {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important;
+      white-space: nowrap !important;
+      border: 0 !important;
+    }
+    footer { padding: 28px 0 36px; border-top: 1px solid var(--line); color: var(--muted); font-size: .8rem; }
+    .footer-inner { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+
+    @media (max-width: 820px) {
+      .topbar-inner { grid-template-columns: 1fr; gap: 10px; padding: 12px 0; }
+      .category-grid { grid-template-columns: 1fr; }
+      .home-intro { padding: 34px 0 21px; }
+      .home-intro h1 { font-size: clamp(2rem, 7vw, 2.7rem); }
+      .category-grid { gap: 10px; padding-bottom: 46px; }
+      .category-card {
+        display: grid;
+        grid-template-columns: 48px minmax(0, 1fr) auto;
+        grid-template-rows: auto auto;
+        column-gap: 13px;
+        min-height: 0;
+        padding: 16px 18px;
+      }
+      .category-card.priority { border-top: 1px solid var(--line); border-left: 5px solid var(--red); padding: 16px 18px 16px 13px; }
+      .card-top { grid-column: 1; grid-row: 1 / 3; align-self: center; }
+      .priority-badge { display: none; }
+      .category-card h2 { grid-column: 2; grid-row: 1; margin: 0; font-size: 1.08rem; }
+      .category-card p { grid-column: 2; grid-row: 2; min-height: 0; margin: 1px 0 0; font-size: .84rem; }
+      .category-card .chips { display: none; }
+      .open-label { position: static; grid-column: 3; grid-row: 1 / 3; align-self: center; }
+      .home-intro, .detail-head { grid-template-columns: 1fr; }
+      .updated { display: none; }
+      .detail-head { padding: 25px; }
+    }
+    @media (max-width: 560px) {
+      main, .topbar-inner { width: min(100% - 28px, 1120px); }
+      .brand-mark { width: 33px; height: 33px; }
+      .home-intro { padding-top: 40px; }
+      .category-card { padding: 21px; }
+      .manual-section summary { grid-template-columns: 48px minmax(0, 1fr) auto; gap: 10px; padding: 16px; }
+      .section-body { padding: 18px 18px 21px; }
+      .subtopic-list { grid-template-columns: 1fr; }
+      .shortcut { display: none; }
+      #search { padding-right: 14px; }
+      .footer-inner { width: min(100% - 28px, 1120px); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#home" aria-label="병원 인증교육 매뉴얼 홈">
+        <span class="brand-mark" aria-hidden="true">＋</span>
+        <span class="brand-name">병원 인증교육 매뉴얼</span>
+      </a>
+      <div class="search-wrap">
+        <span class="search-icon" aria-hidden="true">⌕</span>
+        <input id="search" type="search" placeholder="항목 검색 (예: 낙상, 손위생, 의약품)" autocomplete="off" aria-label="매뉴얼 검색" aria-expanded="false" aria-controls="search-results">
+        <span class="shortcut" aria-hidden="true">Ctrl K</span>
+        <div id="search-results" class="search-results" role="region" aria-label="검색 결과"></div>
+        <span id="search-status" class="visually-hidden" aria-live="polite"></span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="home-view" class="view active" aria-labelledby="home-title">
+      <div class="home-intro">
+        <div>
+          <p class="eyebrow">ACCREDITATION QUICK GUIDE</p>
+          <h1 id="home-title" tabindex="-1">인증조사 준비,<br>필요한 항목만 빠르게.</h1>
+          <p class="intro-copy">장별 원문을 길게 옮기지 않고 현장에서 확인할 기준과 준비 포인트를 중심으로 정리했습니다.</p>
+        </div>
+        <p class="updated">교육자료 기준 · 2026.09.20</p>
+      </div>
+
+      <div class="category-grid" aria-label="매뉴얼 대분류">
+        <a class="category-card" href="#overview" data-route="overview">
+          <span class="card-top"><span class="card-number">1</span></span>
+          <h2>개요</h2>
+          <p>인증조사의 목적과 현장 대응 원칙을 먼저 확인합니다.</p>
+          <span class="chips"><span class="chip">인증 이해</span><span class="chip">기본 원칙</span><span class="chip">준비 흐름</span></span>
+          <span class="open-label">열기 →</span>
+        </a>
+
+        <a class="category-card priority" href="#required" data-route="required">
+          <span class="card-top"><span class="card-number">2</span><span class="priority-badge">필수 확인</span></span>
+          <h2>필수인증항목</h2>
+          <p>환자안전·직원안전·보안·화재의 필수기준 9개를 모았습니다.</p>
+          <span class="chips"><span class="chip">환자안전 6</span><span class="chip">직원안전</span><span class="chip">보안</span><span class="chip">화재</span></span>
+          <span class="open-label">열기 →</span>
+        </a>
+
+        <a class="category-card" href="#other" data-route="other">
+          <span class="card-top"><span class="card-number">3</span></span>
+          <h2>그외항목</h2>
+          <p>진료과정·의약품·감염·시설환경 등 연계 항목을 확인합니다.</p>
+          <span class="chips"><span class="chip">진료</span><span class="chip">의약품</span><span class="chip">감염</span><span class="chip">환경</span></span>
+          <span class="open-label">열기 →</span>
+        </a>
+      </div>
+    </section>
+
+    <section id="detail-view" class="view detail-shell">
+      <button class="back" type="button" data-route="home">← 목차로</button>
+      <div id="detail-content"></div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">첨부 인증교육 자료에서 선별한 내부 교육용 요약 · 실제 업무는 최신 원내 지침과 원문을 우선 적용하세요. · 갱신 2026.09.20</div>
+  </footer>
+
+  <script>
+    const MANUAL = {
+      overview: {
+        number: "1",
+        title: "개요",
+        description: "인증조사 전, 모든 직원이 공통으로 이해해야 할 기본 방향입니다.",
+        notice: "이 매뉴얼은 교육자료를 빠르게 찾기 위한 요약본입니다. 세부 판단이 필요한 경우 최신 원내 지침을 확인하세요.",
+        sections: [
+          { code: "OV-01", title: "인증제도 한눈에", meta: "4개 영역 · 13개 장 · 92개 기준 · 523개 조사항목", bullets: ["인증은 정해진 절차가 실제 진료현장에서 일관되게 수행되는지 확인하는 과정입니다.", "필수기준은 반드시 ‘상’ 등급, 즉 수행률 90% 이상을 충족해야 합니다.", "전체 조사항목 수행률이 60% 미만이면 불인증입니다."], point: "답변보다 중요한 것은 실제 수행, 환경, 기록이 서로 일치하는 것입니다." },
+          { code: "OV-02", title: "조사는 어떻게 진행되는가", meta: "인터뷰 · 규정검토 · 개별환자 추적 · 시스템 추적", bullets: ["조사위원은 환자 진료의 실제 흐름을 따라가며 수행과 최근 1년의 기록을 함께 확인합니다.", "경영진·직원뿐 아니라 환자와 보호자에게도 질문할 수 있습니다.", "부서별 연출보다 평소 표준절차를 정확히 수행하는 것이 우선입니다."] },
+          { code: "OV-03", title: "S-P-O로 이해하기", meta: "System · Process · Outcome", bullets: ["S(시스템): 업무를 뒷받침할 규정과 체계가 마련되어 있는지 봅니다.", "P(과정): 정해진 절차가 현장에서 실제로 수행되는지 봅니다.", "O(결과): 수행 결과를 지표로 확인하고 개선으로 이어지는지 봅니다."] },
+          { code: "OV-04", title: "공지와 지침 찾기", meta: "그룹웨어 · BESTCare · SNUBH 통합지침", bullets: ["그룹웨어 인증 게시판·자료실과 BESTCare ‘지침’에서 최신 문서를 확인합니다.", "질 관리 지침, 감염관리지침 등 해당 폴더에서 문서명과 개정일을 확인합니다.", "기억이 불확실할 때는 추측하지 말고 지침을 열어 근거로 설명합니다."], point: "자신의 업무에 해당하는 지침을 직접 검색하고 열어보는 연습이 필요합니다." },
+          { code: "OV-05", title: "조사 응대 원칙", meta: "근거를 보여주며 짧고 정확하게", bullets: ["지정 PC를 사용하고 환자정보가 노출되지 않도록 메신저 등 불필요한 화면을 닫습니다.", "질문을 끝까지 들은 뒤 실제 수행방법과 근거 화면·게시물로 간결하게 설명합니다.", "모르는 내용은 추측하지 말고 확인 후 답변합니다."] },
+          { code: "OV-06", title: "꼭 기억할 신고번호", meta: "보안 1111 · 시설 8000 · CPR 3000 · 의료기기 1354 · 화재 119", bullets: ["보안·폭력 등 긴급상황은 1111로 신고합니다.", "시설 이상은 8000, 심폐소생술은 3000, 의료기기 이상은 1354로 연락합니다.", "화재는 119 신고와 원내 비상절차를 함께 시행합니다."], point: "시설 문제라도 인명피해가 발생했거나 임박하면 1111로 먼저 신고합니다." }
+        ]
+      },
+      required: {
+        number: "2",
+        title: "필수인증항목",
+        description: "교육자료가 명시한 공식 필수기준 9개입니다.",
+        notice: "필수기준은 모두 ‘상’(수행률 90% 이상)을 충족해야 합니다.",
+        groupByChapter: true,
+        sections: [
+          { code: "1.1", title: "정확한 환자 확인", critical: true, meta: "1장 환자안전보장활동 · 원문 p15–18", bullets: ["이름은 개방형으로 질문하고 등록번호 또는 생년월일을 함께 확인합니다.", "환자확인팔찌와 처방·PDA 정보를 대조합니다.", "병실·침상 위치는 식별정보로 사용하지 않습니다."], point: "개방형 질문 + 두 가지 식별정보를 모든 상황에서 일관되게 적용합니다." },
+          { code: "1.2", title: "의료진 간 정확한 의사소통", critical: true, meta: "1장 환자안전보장활동 · 원문 p19–30", bullets: ["구두·전화 처방은 허용된 제한 상황에서만 시행합니다.", "처방내용을 받아 적고 복창한 뒤 처방자에게 재확인합니다.", "처방의사는 24시간 이내 정식 오더를 입력하고, 중요 결과는 정해진 시간 안에 보고·기록합니다."], point: "받아적기 → 복창 → 재확인 순서를 지킵니다." },
+          { code: "1.3", title: "수술·시술 전 정확한 확인", critical: true, meta: "1장 환자안전보장활동 · 원문 p31–38", bullets: ["환자, 수술·시술명, 부위, 동의서, 준비상태를 단계별로 확인합니다.", "해당하는 경우 수술·시술 부위를 표시하고 환자가 확인에 참여합니다.", "Sign-in과 시작 직전 Time-out을 정해진 방식으로 시행합니다."], point: "환자 확인·부위표시·Time-out은 서로 대체하지 않습니다." },
+          { code: "1.4", title: "낙상 예방활동", critical: true, meta: "1장 환자안전보장활동 · 원문 p39–44", bullets: ["입원 시, 상태 변화 시, 주 2회 낙상위험을 재평가합니다.", "고위험 여부를 공유하고 환자·보호자 교육과 환경관리를 시행합니다.", "낙상매트는 사용하지 않으며, 낙상 발생 시 즉시 환자상태 확인·보고·재평가를 시행합니다."] },
+          { code: "1.5", title: "손위생", critical: true, meta: "1장 환자안전보장활동 · 원문 p45–48", bullets: ["손소독제는 20–30초, 물과 비누는 40–60초 동안 올바른 순서로 시행합니다.", "환자 접촉 전·후, 무균처치 전, 체액 노출 위험 후, 환자 주변 접촉 후 손위생을 시행합니다.", "장갑 착용 전·후에도 손위생을 하며 장갑 위 소독은 하지 않습니다."], point: "장갑은 손위생을 대신하지 않습니다." },
+          { code: "7.3", title: "환자안전사고 관리", critical: true, meta: "7장 질 향상 및 환자안전활동 · 원문 p49–67", bullets: ["사고 발생 시 환자 위해를 줄이는 조치를 먼저 시행하고 SAFE로 보고합니다.", "Level 0–2는 자율보고, Level 3–4는 의무보고 대상입니다.", "국가 의무보고 대상은 지체 없이 보고하고 원인분석·재발방지 활동에 참여합니다."], point: "사고보고는 처벌보다 재발방지를 위한 안전활동입니다." },
+          { code: "10.7", title: "직원안전관리", critical: true, meta: "10장 인적자원관리 · 원문 p131–144", bullets: ["직무 중 손상·노출은 SAFE의 ‘직무 중…’ 항목으로 즉시 보고합니다.", "주사침·체액 노출 시 응급조치 후 정해진 절차를 따릅니다.", "화학물질의 MSDS와 spill kit 위치·사용법을 확인하고 필요한 보호구를 착용합니다."] },
+          { code: "11.4", title: "보안체계", critical: true, meta: "11장 시설 및 환경관리 · 원문 p166–170", bullets: ["출입통제와 환자·직원 보호 절차를 준수합니다.", "보안·폭력·인명위험 상황은 1111로 즉시 신고합니다.", "신고 시 장소, 상황, 위험요인을 짧고 정확하게 전달합니다."] },
+          { code: "11.6", title: "화재안전관리", critical: true, meta: "11장 시설 및 환경관리 · 원문 p177–187", bullets: ["화재 발견 즉시 크게 알리고 발신기 작동, 신고, 초기소화, 환자대피를 시행합니다.", "119 신고와 원내 비상연락을 시행하고 엘리베이터는 사용하지 않습니다.", "거동 가능 → 부축 필요 → 거동 불가 환자 순으로 대피합니다."], point: "근무구역의 소화기·비상구·대피경로와 집결지를 실제로 확인하세요." }
+        ]
+      },
+      other: {
+        number: "3",
+        title: "그외항목",
+        description: "진료 흐름과 환자경험 전반을 장별로 확인합니다.",
+        notice: "자신의 부서와 직무에 해당하는 항목을 먼저 펼쳐 확인하세요.",
+        sections: [
+          { code: "2", title: "진료전달체계와 평가", meta: "2장 · 원문 p190–217", bullets: ["입원부터 퇴원까지 환자상태와 요구에 맞는 절차를 적용합니다.", "상태 변화와 필수정보를 의료진 간 적시에 공유합니다.", "초기평가 결과를 치료계획과 연계합니다."], topics: [
+            { label: "2.2 입원수속 절차", pages: "p190–194" }, { label: "2.3 중환자실·특수치료실 입실절차", pages: "p195–198" }, { label: "2.4 정보공유·상태변화 조기인지", pages: "p199–206" }, { label: "2.5 퇴원체계", pages: "p207–210" }, { label: "2.7 입원 초기평가", pages: "p211–217" }
+          ] },
+          { code: "3", title: "환자진료", meta: "3장 · 원문 p219–277", bullets: ["환자별 치료계획을 세우고 상태 변화에 따라 재평가합니다.", "통증·영양·욕창 등 주요 위험을 표준화된 방법으로 관리합니다.", "고위험 진료는 적응증, 동의, 관찰, 응급대응 절차를 준수합니다."], topics: [
+            { label: "3.1 치료계획", pages: "p219–231" }, { label: "3.3 통증관리", pages: "p232–239" }, { label: "3.4 영양관리", pages: "p240–245" }, { label: "3.5 영양집중지원서비스", pages: "p246–248" }, { label: "3.6 욕창예방관리", pages: "p249–252" }, { label: "3.7 호스피스 완화의료", pages: "p253–255" }, { label: "3.9 심폐소생술", pages: "p256–264" }, { label: "3.10 수혈환자 의료서비스", pages: "p265–268" }, { label: "3.11 항암화학요법", pages: "p269–274" }, { label: "3.12 신체보호대", pages: "p275–277" }
+          ] },
+          { code: "4", title: "의약품관리", meta: "4장 · 원문 p279–300", bullets: ["약품냉장고는 2–8℃를 유지하고, 고위험약은 분리·경고표시합니다.", "마약은 이중 잠금, 매일 점검, 수량 일치와 기록을 확인합니다.", "투약 전 5 Rights를 확인하고 이상반응은 즉시 중지·보고·처치합니다."], topics: [
+            { label: "4.3 의약품 보관", pages: "p279–288" }, { label: "4.4 의약품 처방 및 조제", pages: "p289–294" }, { label: "4.5 의약품 투여", pages: "p295–300" }
+          ], point: "주사제는 투여 직전에 준비하고, 일회용 바이알과 바늘·주사기는 재사용하지 않습니다." },
+          { code: "5", title: "수술 및 마취·진정관리", meta: "5장 · 원문 p302–321", bullets: ["사전평가를 바탕으로 계획·진단명·부위를 기록하고 설명·동의를 확인합니다.", "진정 중 활력징후·SpO₂·진정점수를 정해진 간격으로 관찰합니다.", "회복기준을 충족한 뒤 종료하고 상태 악화 시 3000으로 신고합니다."], topics: [
+            { label: "5.1 수술 계획수립", pages: "p302–307" }, { label: "5.3 시술 계획수립 및 수행", pages: "p308–310" }, { label: "5.4 진정치료", pages: "p311–321" }
+          ] },
+          { code: "6", title: "환자권리존중 및 보호", meta: "6장 · 원문 p323–348", bullets: ["환자의 존엄, 사생활, 알 권리, 자기결정권을 보호합니다.", "취약환자에게 통역·수어·필담 등 필요한 의사소통 지원을 제공합니다.", "설명과 동의, 고충처리가 환자 관점에서 작동하도록 합니다."], topics: [
+            { label: "6.1 환자의 권리와 의무", pages: "p323–325" }, { label: "6.2 취약환자 권리 보호", pages: "p326–330" }, { label: "6.3 불만 및 고충관리", pages: "p331–333" }, { label: "6.4 의료사회복지체계", pages: "p334–337" }, { label: "6.5 동의서", pages: "p338–341" }, { label: "6.7 장기기증 및 이식과정 관리", pages: "p342–348" }
+          ], point: "환자정보 화면은 자리를 비울 때 잠그고, 출력물은 정해진 방법으로 폐기합니다." },
+          { code: "8", title: "감염관리", meta: "8장 · 원문 p68–122", bullets: ["혈관·요로·호흡기 기구는 무균술과 폐쇄상태를 유지하고 불필요하면 제거합니다.", "세척을 소독·멸균보다 먼저 시행하고 청결·오염 동선을 분리합니다.", "격리표지, 보호구, 음압·양압 등 전파경로별 기준을 적용합니다."], topics: [
+            { label: "8.1 감염 예방·관리체계", pages: "p68–70" }, { label: "8.4 의료기구 관련 감염관리", pages: "p71–84" }, { label: "8.5 세척·소독·멸균·세탁물", pages: "p85–98" }, { label: "8.6 환경관리", pages: "p99–107" }, { label: "8.8 감염성 질환·면역저하 환자", pages: "p108–122" }
+          ] },
+          { code: "10", title: "인적자원관리", meta: "10장 · 원문 p123–148", bullets: ["면허·자격과 필수교육이 유효한지 확인하고 허용된 범위 안에서 업무를 수행합니다.", "폭력 위험징후를 조기에 인지하고 안전을 확보한 뒤 1111로 신고합니다.", "필수기준인 직원안전관리(10.7)는 ‘필수인증항목’에서 함께 확인합니다."], topics: [
+            { label: "10.1 적격한 자격관리", pages: "p123–130" }, { label: "10.8 폭력예방 및 관리체계", pages: "p145–148" }
+          ] },
+          { code: "11", title: "시설 및 환경관리", meta: "11장 · 원문 p149–188", bullets: ["시설 위험요인을 즉시 조치하고 시설 이상은 8000으로 신고합니다.", "위험물질은 라벨·MSDS·spill kit·보호구 기준에 따라 관리합니다.", "고장 의료기기는 사용중지 표시 후 분리하고 1354로 연락합니다."], topics: [
+            { label: "11.1 시설 및 환경관리", pages: "p149–155" }, { label: "11.3 위험물질 관리", pages: "p156–165" }, { label: "11.5 의료기기 관리", pages: "p171–176" }, { label: "11.7 재난관리", pages: "p188" }
+          ], point: "인명피해가 발생했거나 임박한 시설 문제는 1111로 먼저 신고합니다." },
+          { code: "9·13", title: "경영 및 성과관리", meta: "9.2 미션·핵심가치 / 13.1 성과관리 · 원문 p349–352", bullets: ["병원의 미션과 비전을 이해하고 부서 업무와 연결합니다.", "적합성·안전·시급성 등을 고려해 지표 우선순위와 목표를 정합니다.", "결과가 목표에 미달하면 개선계획을 세우고 효과를 확인·공유합니다."], topics: [
+            { label: "9.2 미션과 핵심가치", pages: "p349" }, { label: "13.1 성과관리", pages: "p350–352" }
+          ] }
+        ]
+      }
+    };
+
+    const homeView = document.querySelector("#home-view");
+    const detailView = document.querySelector("#detail-view");
+    const detailContent = document.querySelector("#detail-content");
+    const search = document.querySelector("#search");
+    const results = document.querySelector("#search-results");
+    const searchStatus = document.querySelector("#search-status");
+
+    const allSections = Object.entries(MANUAL).flatMap(([route, group]) =>
+      group.sections.map(section => ({ ...section, route, groupTitle: group.title }))
+    );
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>'"]/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" }[char]));
+    }
+
+    function sectionHtml(section) {
+      return `
+        <details class="manual-section" id="item-${escapeHtml(section.code.replaceAll('.', '-'))}">
+          <summary>
+            <span class="section-code">${escapeHtml(section.code)}</span>
+            <span><span class="section-title" role="heading" aria-level="2">${escapeHtml(section.title)}</span>${section.critical ? `<span class="critical-tag">필수기준</span>` : ""}<span class="section-meta">${escapeHtml(section.meta)}</span></span>
+          </summary>
+          <div class="section-body">
+            <h3>핵심 확인</h3>
+            <ul>${section.bullets.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+            ${section.topics?.length ? `<div class="subtopic-list">${section.topics.map(topic => `<span class="subtopic"><span>${escapeHtml(topic.label)}</span><small>${escapeHtml(topic.pages)}</small></span>`).join("")}</div>` : ""}
+            ${section.point ? `<div class="callout"><strong>현장 포인트</strong> · ${escapeHtml(section.point)}</div>` : ""}
+          </div>
+        </details>`;
+    }
+
+    function groupedSectionsHtml(group) {
+      let previousChapter = "";
+      return group.sections.map(section => {
+        if (!group.groupByChapter) return sectionHtml(section);
+        const chapter = section.meta.split(" · ")[0];
+        const heading = chapter !== previousChapter ? `<h2 class="chapter-heading">${escapeHtml(chapter)}</h2>` : "";
+        previousChapter = chapter;
+        return heading + sectionHtml(section);
+      }).join("");
+    }
+
+    function renderRoute(route, targetCode, moveFocus = false) {
+      if (route === "home" || !Object.hasOwn(MANUAL, route)) {
+        homeView.classList.add("active");
+        detailView.classList.remove("active");
+        document.title = "병원 인증교육 매뉴얼";
+        window.scrollTo(0, 0);
+        if (moveFocus) document.querySelector("#home-title").focus({ preventScroll: true });
+        return;
+      }
+      const group = MANUAL[route];
+      homeView.classList.remove("active");
+      detailView.classList.add("active");
+      detailContent.innerHTML = `
+        <header class="detail-head">
+          <div><p class="eyebrow">SECTION ${group.number.padStart(2, "0")}</p><h1 tabindex="-1">${escapeHtml(group.title)}</h1><p>${escapeHtml(group.description)}</p></div>
+          <span class="head-count">총 ${group.sections.length}개 항목</span>
+        </header>
+        <div class="notice"><span aria-hidden="true">※</span><span>${escapeHtml(group.notice)}</span></div>
+        <div class="section-list">${groupedSectionsHtml(group)}</div>`;
+      document.title = `${group.title} · 병원 인증교육 매뉴얼`;
+      if (moveFocus) detailContent.querySelector("h1").focus({ preventScroll: true });
+      if (targetCode) {
+        const target = document.querySelector(`#item-${CSS.escape(targetCode.replaceAll('.', '-'))}`);
+        if (target) { target.open = true; setTimeout(() => target.scrollIntoView({ block: "start" }), 60); }
+      } else {
+        window.scrollTo(0, 0);
+      }
+    }
+
+    function navigate(route, code) {
+      const nextHash = `#${code ? `${route}/${encodeURIComponent(code)}` : route}`;
+      if (location.hash === nextHash) renderRoute(route, code || "", true);
+      else location.hash = nextHash;
+    }
+
+    function applyHash(moveFocus = false) {
+      const raw = location.hash.slice(1) || "home";
+      const [route, encodedCode] = raw.split("/");
+      let code = "";
+      try { code = encodedCode ? decodeURIComponent(encodedCode) : ""; }
+      catch { renderRoute("home", "", moveFocus); return; }
+      renderRoute(route, code, moveFocus);
+    }
+
+    function highlight(text, query) {
+      const safe = escapeHtml(text);
+      const needle = query.trim().replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      return needle ? safe.replace(new RegExp(`(${needle})`, "ig"), "<mark>$1</mark>") : safe;
+    }
+
+    function closeSearch() {
+      results.classList.remove("open");
+      search.setAttribute("aria-expanded", "false");
+    }
+
+    function runSearch() {
+      const query = search.value.trim().toLocaleLowerCase("ko");
+      if (!query) { closeSearch(); results.innerHTML = ""; searchStatus.textContent = ""; return; }
+      const found = allSections.filter(item =>
+        [item.code, item.title, item.meta, item.groupTitle, ...item.bullets, item.point || "", ...(item.topics || []).map(topic => `${topic.label} ${topic.pages}`)].join(" ").toLocaleLowerCase("ko").includes(query)
+      ).slice(0, 10);
+      results.innerHTML = found.length ? found.map((item, index) => `
+        <a class="search-result" href="#${item.route}/${encodeURIComponent(item.code)}" data-route="${item.route}" data-code="${escapeHtml(item.code)}">
+          <strong>${highlight(`${item.code} ${item.title}`, query)}</strong>
+          <small>${escapeHtml(item.groupTitle)} · ${escapeHtml(item.meta)}</small>
+        </a>`).join("") : `<div class="empty">검색 결과가 없습니다.</div>`;
+      searchStatus.textContent = found.length ? `검색 결과 ${found.length}개` : "검색 결과가 없습니다.";
+      results.classList.add("open");
+      search.setAttribute("aria-expanded", "true");
+    }
+
+    document.addEventListener("click", event => {
+      const routeButton = event.target.closest("[data-route]");
+      if (routeButton) {
+        event.preventDefault();
+        navigate(routeButton.dataset.route, routeButton.dataset.code);
+        closeSearch();
+        if (routeButton.classList.contains("search-result")) {
+          search.value = "";
+          results.innerHTML = "";
+          searchStatus.textContent = "";
+        }
+      }
+      if (!event.target.closest(".search-wrap")) closeSearch();
+    });
+
+    search.addEventListener("input", runSearch);
+    search.addEventListener("keydown", event => {
+      if (event.key === "Escape") { search.value = ""; results.innerHTML = ""; searchStatus.textContent = ""; closeSearch(); search.blur(); }
+      if (event.key === "Enter") {
+        const first = results.classList.contains("open") ? results.querySelector(".search-result") : null;
+        if (first) first.click();
+      }
+    });
+    document.addEventListener("keydown", event => {
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault(); search.focus(); search.select();
+      }
+    });
+    window.addEventListener("hashchange", () => applyHash(true));
+    applyHash(false);
+  </script>
+</body>
+</html>
