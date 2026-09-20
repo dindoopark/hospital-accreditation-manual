@@ -322,6 +322,171 @@
       background: var(--complete);
       content: "";
     }
+    .install-prompt {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+      min-height: 72px;
+      margin-top: 18px;
+      padding: 13px 16px;
+      border: 1px solid #c9dafb;
+      border-radius: var(--radius);
+      background: var(--primary-soft);
+      color: inherit;
+      cursor: pointer;
+      text-align: left;
+      transition: border-color .16s ease, box-shadow .16s ease, transform .16s ease;
+    }
+    .install-prompt:hover {
+      border-color: var(--primary);
+      box-shadow: 0 8px 22px rgba(37, 99, 235, .10);
+      transform: translateY(-1px);
+    }
+    .install-prompt:active { transform: none; }
+    .install-prompt-icon {
+      display: grid;
+      width: 44px;
+      height: 44px;
+      flex: 0 0 auto;
+      place-items: center;
+      border-radius: 12px;
+      background: var(--primary);
+      color: white;
+      font-size: 1.35rem;
+      font-weight: 700;
+    }
+    .install-prompt-copy {
+      display: grid;
+      min-width: 0;
+      flex: 1;
+      gap: 2px;
+    }
+    .install-prompt-copy strong {
+      font-size: .98rem;
+      letter-spacing: -.015em;
+    }
+    .install-prompt-copy small {
+      color: var(--muted);
+      font-size: .8rem;
+    }
+    .install-prompt-action {
+      color: var(--primary);
+      font-size: .82rem;
+      font-weight: 750;
+      white-space: nowrap;
+    }
+
+    body.install-guide-open { overflow: hidden; }
+    .install-dialog {
+      width: min(760px, calc(100% - 32px));
+      max-height: min(84vh, 720px);
+      padding: 0;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: var(--surface);
+      color: var(--text);
+      box-shadow: 0 24px 70px rgba(15, 23, 42, .24);
+    }
+    .install-dialog::backdrop {
+      background: rgba(15, 23, 42, .48);
+      backdrop-filter: blur(2px);
+    }
+    .install-dialog-inner {
+      display: grid;
+      max-height: inherit;
+      grid-template-rows: auto minmax(0, 1fr);
+    }
+    .install-dialog-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 22px 22px 18px;
+      border-bottom: 1px solid var(--border);
+    }
+    .install-dialog-kicker {
+      margin: 0 0 4px;
+      color: var(--primary);
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+    }
+    .install-dialog h2 {
+      margin: 0;
+      font-size: 1.35rem;
+      line-height: 1.35;
+      letter-spacing: -.035em;
+    }
+    .install-dialog-lead {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: .86rem;
+    }
+    .install-dialog-close {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      flex: 0 0 auto;
+      place-items: center;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      background: var(--surface);
+      cursor: pointer;
+      font-size: 1.45rem;
+      line-height: 1;
+    }
+    .install-dialog-close:hover { background: var(--surface-subtle); }
+    .install-dialog-body {
+      padding: 18px 22px 22px;
+      overflow: auto;
+      overscroll-behavior: contain;
+    }
+    .install-platforms {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .install-platform {
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--surface-subtle);
+    }
+    .install-platform h3 {
+      margin: 0 0 11px;
+      font-size: .96rem;
+      line-height: 1.35;
+      letter-spacing: -.02em;
+    }
+    .install-platform-label {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--primary);
+      font-size: .72rem;
+      font-weight: 800;
+    }
+    .install-platform ol {
+      display: grid;
+      gap: 9px;
+      margin: 0;
+      padding-left: 1.25rem;
+      color: #344054;
+      font-size: .82rem;
+      line-height: 1.55;
+    }
+    .install-platform li::marker {
+      color: var(--primary);
+      font-weight: 800;
+    }
+    .install-platform strong { color: var(--text); }
+    .install-caveat {
+      margin: 14px 2px 0;
+      color: var(--muted);
+      font-size: .76rem;
+      line-height: 1.5;
+    }
 
     .player {
       width: min(1500px, calc(100% - 40px));
@@ -708,6 +873,23 @@
       .home { width: min(100% - 24px, 1180px); padding: 34px 0 54px; }
       .home-heading { align-items: start; margin-bottom: 18px; }
       .source-total { display: none; }
+      .install-prompt { min-height: 68px; margin-top: 14px; padding: 12px 13px; }
+      .install-prompt-action { font-size: 0; }
+      .install-prompt-action::after { font-size: 1.1rem; content: "→"; }
+      .install-dialog {
+        width: 100%;
+        max-width: none;
+        max-height: 90dvh;
+        margin: auto 0 0;
+        border-right: 0;
+        border-bottom: 0;
+        border-left: 0;
+        border-radius: 22px 22px 0 0;
+      }
+      .install-dialog-header { padding: 20px 16px 16px; }
+      .install-dialog-body { padding: 14px 16px calc(18px + env(safe-area-inset-bottom)); }
+      .install-platforms { grid-template-columns: 1fr; }
+      .install-platform { padding: 14px 15px; }
       .lesson {
         grid-template-columns: 48px minmax(0, 1fr) auto;
         gap: 12px;
@@ -776,7 +958,7 @@
     }
 
     @media print {
-      .app-header, .breadcrumb-bar, .toc-panel, .player-toolbar, .player-controls { display: none !important; }
+      .app-header, .breadcrumb-bar, .toc-panel, .player-toolbar, .player-controls, .install-prompt, .install-dialog { display: none !important; }
       body, .player, .player-card, .page-stage { width: 100%; margin: 0; padding: 0; border: 0; background: white; box-shadow: none; }
       .page-stage { height: auto; overflow: visible; }
       #page-image { width: 100% !important; box-shadow: none; }
@@ -842,6 +1024,15 @@
         </a>
       </div>
 
+      <button id="install-guide-open" class="install-prompt" type="button" aria-haspopup="dialog" aria-controls="install-guide">
+        <span class="install-prompt-icon" aria-hidden="true">＋</span>
+        <span class="install-prompt-copy">
+          <strong>휴대폰 홈 화면에 추가하기</strong>
+          <small>바로가기 아이콘으로 인증교육을 빠르게 여세요.</small>
+        </span>
+        <span class="install-prompt-action">방법 보기</span>
+      </button>
+
       <p class="home-note">본문은 첨부된 인증교육 PDF 원본 페이지를 그대로 표시합니다.</p>
     </section>
 
@@ -900,6 +1091,51 @@
       <span id="page-live" class="visually-hidden" aria-live="polite"></span>
     </section>
   </main>
+
+  <dialog id="install-guide" class="install-dialog" aria-labelledby="install-guide-title" aria-describedby="install-guide-lead">
+    <div class="install-dialog-inner">
+      <header class="install-dialog-header">
+        <div>
+          <p class="install-dialog-kicker">HOME SCREEN</p>
+          <h2 id="install-guide-title">홈 화면에 추가하기</h2>
+          <p id="install-guide-lead" class="install-dialog-lead">사용 중인 휴대폰과 브라우저에 맞춰 진행하세요.</p>
+        </div>
+        <button id="install-guide-close" class="install-dialog-close" type="button" aria-label="설치 안내 닫기">×</button>
+      </header>
+
+      <div class="install-dialog-body">
+        <div class="install-platforms">
+          <article class="install-platform">
+            <h3><span class="install-platform-label">iPhone · iPad</span>Safari</h3>
+            <ol>
+              <li>Safari에서 이 사이트를 엽니다.</li>
+              <li><strong>페이지 메뉴 또는 공유(□↑)</strong>를 누릅니다.</li>
+              <li><strong>홈 화면에 추가</strong>를 선택하고, 표시되면 <strong>웹 앱으로 열기</strong>를 켠 뒤 <strong>추가</strong>를 누릅니다.</li>
+            </ol>
+          </article>
+
+          <article class="install-platform">
+            <h3><span class="install-platform-label">Android</span>Chrome</h3>
+            <ol>
+              <li>Chrome에서 이 사이트를 엽니다.</li>
+              <li>오른쪽 위 <strong>더보기(⋮)</strong>를 누릅니다.</li>
+              <li><strong>설치 및 바로가기 만들기 → 바로가기 만들기 → 추가</strong>를 누릅니다.</li>
+            </ol>
+          </article>
+
+          <article class="install-platform">
+            <h3><span class="install-platform-label">Galaxy</span>삼성 인터넷</h3>
+            <ol>
+              <li>삼성 인터넷에서 이 사이트를 엽니다.</li>
+              <li>오른쪽 아래 <strong>메뉴(≡) → 현재 페이지 추가</strong>를 누릅니다.</li>
+              <li><strong>홈 화면 → 추가 → 추가</strong>를 누릅니다.</li>
+            </ol>
+          </article>
+        </div>
+        <p class="install-caveat">※ 휴대폰과 브라우저 버전에 따라 메뉴 이름이 ‘설치’, ‘바로가기 만들기’, ‘홈 화면에 추가’ 등으로 다르게 표시될 수 있습니다.</p>
+      </div>
+    </div>
+  </dialog>
 
   <script>
     var GROUPS = {
@@ -1107,7 +1343,32 @@
     var searchResults = document.getElementById("search-results");
     var searchStatus = document.getElementById("search-status");
     var pageLive = document.getElementById("page-live");
+    var installGuideOpen = document.getElementById("install-guide-open");
+    var installGuide = document.getElementById("install-guide");
+    var installGuideClose = document.getElementById("install-guide-close");
     var progressKey = "hospital-accreditation-player-progress-v1";
+
+    function openInstallGuide() {
+      if (installGuide.open) return;
+      document.body.classList.add("install-guide-open");
+      if (typeof installGuide.showModal === "function") {
+        installGuide.showModal();
+      } else {
+        installGuide.setAttribute("open", "");
+      }
+      installGuideClose.focus();
+    }
+
+    function closeInstallGuide() {
+      if (!installGuide.open) return;
+      if (typeof installGuide.close === "function") {
+        installGuide.close();
+      } else {
+        installGuide.removeAttribute("open");
+        document.body.classList.remove("install-guide-open");
+        installGuideOpen.focus();
+      }
+    }
 
     function createElement(tag, className, text) {
       var node = document.createElement(tag);
@@ -1535,6 +1796,19 @@
     tocToggle.addEventListener("click", openToc);
     tocClose.addEventListener("click", function () { closeToc(true); });
     tocOverlay.addEventListener("click", function () { closeToc(true); });
+
+    installGuideOpen.addEventListener("click", openInstallGuide);
+    installGuideClose.addEventListener("click", closeInstallGuide);
+    installGuide.addEventListener("close", function () {
+      document.body.classList.remove("install-guide-open");
+      installGuideOpen.focus();
+    });
+    installGuide.addEventListener("click", function (event) {
+      if (event.target !== installGuide) return;
+      var bounds = installGuide.getBoundingClientRect();
+      var outside = event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom;
+      if (outside) closeInstallGuide();
+    });
 
     searchInput.addEventListener("input", runSearch);
     searchInput.addEventListener("keydown", function (event) {
